@@ -1,14 +1,24 @@
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 apply plugin: 'maven'
+apply plugin: 'com.jfrog.bintray'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    }
+}
+
+repositories {
+        mavenCentral()
+}
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-}
-
-repositories {
-    mavenCentral()
 }
 
 group='org.crazycoder'
@@ -19,5 +29,30 @@ uploadArchives {
         mavenDeployer {
             repository(url: "file://${System.env.HOME}/.m2/repository/")
         }
+    }
+}
+
+publishing {
+    publications {
+        mavenGroovy(MavenPublication) {
+            from components.java
+            groupId 'org.crazycoder'
+            artifactId 'android-thrift-plugin'
+            version '0.1'
+        }
+    }
+}
+
+bintray {
+    user = property('user')
+    key = property('key')
+    publications = ['mavenGroovy']
+    publish = true
+    pkg {
+        repo = 'maven'
+        name = 'android-thrift-plugin'
+        userOrg = 'adyach'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/adyach/android-thrift-plugin.git'
     }
 }
