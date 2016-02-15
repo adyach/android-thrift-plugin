@@ -1,26 +1,58 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'com.jfrog.bintray'
 
 buildscript {
     repositories {
         jcenter()
-        mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-beta2'
-        classpath 'org.crazycoder:android-thrift-plugin:0.1'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
     }
 }
 
-allprojects {
+repositories {
+        mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+group='org.crazycoder'
+version='0.1'
+
+uploadArchives {
     repositories {
-        jcenter()
-        mavenLocal()
+        mavenDeployer {
+            repository(url: "file://${System.env.HOME}/.m2/repository/")
+        }
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+publishing {
+    publications {
+        mavenGroovy(MavenPublication) {
+            from components.java
+            groupId 'org.crazycoder'
+            artifactId 'android-thrift-plugin'
+            version '0.1'
+        }
+    }
+}
+
+bintray {
+    user = property('user')
+    key = property('key')
+    publications = ['mavenGroovy']
+    publish = true
+    pkg {
+        repo = 'maven'
+        name = 'android-thrift-plugin'
+        userOrg = 'adyach'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/adyach/android-thrift-plugin.git'
+    }
 }
