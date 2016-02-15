@@ -1,5 +1,6 @@
 # android-thrift-plugin
 Thrift DSL compilation for Android projects
+
 # add to project directory gradle file
 buildscript {<br/>
     repositories {<br/>
@@ -8,9 +9,10 @@ buildscript {<br/>
         }<br/>
     }<br/>
     dependencies {<br/>
-        classpath 'org.crazycoder:android-thrift-plugin:0.1'v
+        classpath 'org.crazycoder:android-thrift-plugin:0.1'<br/>
     }<br/>
 }<br/>
+
 # add to app gradle file
 apply plugin: 'android-thrift-plugin'
 
