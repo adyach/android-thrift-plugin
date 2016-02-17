@@ -1,7 +1,7 @@
 # android-thrift-plugin
 Thrift DSL compilation for Android projects
 
-# Instalation
+# Installation
 ### Add to project directory gradle file
 ```
 buildscript {
