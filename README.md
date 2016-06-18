@@ -19,6 +19,7 @@ buildscript {
 ### Add to app gradle file
 ```
 apply plugin: 'android-thrift-plugin'
+
 compileThrift {
     generatedFilesFolder '.'
     thriftFilesFolder 'thrift'
