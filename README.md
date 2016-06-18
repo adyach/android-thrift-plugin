@@ -1,8 +1,8 @@
 # android-thrift-plugin
 Thrift DSL compilation for Android projects
 
-# Instalation
-### Add to project directory gradle file
+# Installation
+### Connect maven repository
 ```
 buildscript {
     repositories {
@@ -16,7 +16,7 @@ buildscript {
 }
 ```
 
-### Add to app gradle file
+### Plugin usage
 ```
 apply plugin: 'android-thrift-plugin'
 
